@@ -31,3 +31,4 @@ No build step, no install — it's plain HTML/CSS/JS. Two ways to view it:
 ## Deploying
 
 See the deployment steps in the chat — GitHub first, then Vercel connects to the repo and redeploys automatically on every push.
+"# vure-en-avonture" 
