@@ -1,5 +1,5 @@
 // ============================================================
-// Fynbos & Flame — main.js
+// vure & avonture — main.js
 // Three small, independent features. Each is commented so you
 // can see what's happening under the hood — see LEARNING.md
 // for the fuller walkthrough.
@@ -104,6 +104,32 @@ if (canvas) {
   }
   window.addEventListener('resize', resizeCanvas);
   resizeCanvas();
+
+  // A simple script to follow the mouse within the hero section
+document.addEventListener('DOMContentLoaded', () => {
+    const heroSection = document.querySelector('.hero');
+    const cursorSpark = document.querySelector('.cursor-spark');
+
+    if (!heroSection || !cursorSpark) return;
+
+    heroSection.addEventListener('mousemove', (e) => {
+        // CHANGED: We use clientX and clientY instead of pageX and pageY
+        // This perfectly matches 'position: fixed' in the CSS
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+
+        cursorSpark.style.left = `${mouseX}px`;
+        cursorSpark.style.top = `${mouseY}px`;
+    });
+
+    heroSection.addEventListener('mouseenter', () => {
+        cursorSpark.classList.add('active');
+    });
+
+    heroSection.addEventListener('mouseleave', () => {
+        cursorSpark.classList.remove('active');
+    });
+});
 
   class Spark {
     constructor() {

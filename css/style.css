@@ -284,11 +284,51 @@ p { margin: 0 0 var(--space-2); }
   /* Make sure the glow fades in/out smoothly */
   transition: box-shadow 0.4s ease-out; 
 }
+/* The new, concentrated cursor follower */
+/* The new, soft aura glow */
+.cursor-spark {
+  /* 1. Make it a larger, invisible box to hold the soft glow */
+  width: 120px; 
+  height: 120px;
+  border-radius: 50%;
 
-/* 3. Trigger the animation when the mouse hovers over it */
-.hero:hover {
-  animation: spark-glow 1.2s infinite alternate;
+  /* 2. Fix the alignment issue */
+  position: fixed; /* Fixed keeps it locked to the screen/mouse, ignoring scroll */
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%); /* Centers the 120px box perfectly on the mouse tip */
+  z-index: 9999; /* Ensure it stays on top of everything */
+  pointer-events: none; /* Let clicks pass through */
+
+  /* 3. The true "Glow" effect - a soft gradient instead of a hard shape */
+  background: radial-gradient(
+    circle, 
+    rgba(255, 140, 0, 0.4) 0%,   /* Bright orange center */
+    rgba(255, 69, 0, 0.15) 40%,  /* Fades to red-orange */
+    transparent 70%              /* Fades completely to nothing at the edges */
+  );
+
+  /* 4. Visibility */
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
+
+.cursor-spark.active {
+  opacity: 1;
+}
+
+/* Make the spark visible when JS adds the 'active' class */
+.cursor-spark.active {
+  opacity: 1;
+}
+
+/* Define a small pulse animation */
+@keyframes cursor-pulse {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  100% { transform: translate(-50%, -50%) scale(1.15); }
+}
+
+
 .hero .container {
   position: relative;
   z-index: 5;
