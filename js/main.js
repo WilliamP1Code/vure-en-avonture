@@ -65,3 +65,29 @@ videoModal.addEventListener('click', (event) => {
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeVideoModal();
 });
+
+// ---------- 4. Dark / Light Mode Toggle ----------
+const themeToggle = document.getElementById('themeToggle');
+
+if (themeToggle) {
+  // Check if theme preference was previously saved or check system preference
+  const savedTheme = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+
+  themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+    if (newTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    localStorage.setItem('theme', newTheme);
+  });
+}
+

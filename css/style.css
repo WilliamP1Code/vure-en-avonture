@@ -7,12 +7,16 @@
 :root {
   /* Colors — pulled from the Garden Route ecosystem, not a stock palette */
   --fynbos: #24402f;       /* deep shrubland green — primary */
+  --fynbos-light: #345c43;
   --lagoon: #1d6e74;       /* Knysna lagoon teal — secondary */
   --protea: #d9a227;       /* pincushion-protea gold / firelight — accent */
   --rust: #a8502e;         /* Robberg sandstone cliff — warm accent */
   --sand: #ede6d6;         /* milkwood sand — light background */
   --ink: #1a1d19;          /* near-black, green-tinted — dark bg / text */
   --paper: #f7f4ec;        /* slightly lighter than sand, for cards */
+  --card-border: rgba(26, 29, 25, 0.08);
+  --text-muted: #3a3a34;
+  --nav-bg: rgba(237, 230, 214, 0.92);
 
   /* Type */
   --font-display: "Fraunces", Georgia, serif;
@@ -27,8 +31,20 @@
   --space-5: 4rem;
   --space-6: 6rem;
 
-  --radius: 6px;
+  --radius: 8px;
   --max-width: 1180px;
+
+  /* Transitions */
+  --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root[data-theme="dark"] {
+  --sand: #121512;
+  --ink: #f0eee6;
+  --paper: #1b201a;
+  --card-border: rgba(240, 238, 230, 0.12);
+  --text-muted: #b0b5aa;
+  --nav-bg: rgba(18, 21, 18, 0.92);
 }
 
 /* ---------- Reset ---------- */
@@ -59,9 +75,10 @@ p { margin: 0 0 var(--space-2); }
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(237, 230, 214, 0.92);
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid rgba(26, 29, 25, 0.08);
+  background: var(--nav-bg);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--card-border);
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 .site-nav .container {
   display: flex;
@@ -79,7 +96,45 @@ p { margin: 0 0 var(--space-2); }
   text-decoration: none;
   color: var(--fynbos);
 }
+:root[data-theme="dark"] .brand {
+  color: var(--protea);
+}
 .brand svg { width: 30px; height: 30px; }
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.theme-toggle {
+  background: transparent;
+  border: 1px solid var(--card-border);
+  color: var(--ink);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.theme-toggle:hover {
+  transform: scale(1.08);
+  background: rgba(217, 162, 39, 0.15);
+  color: var(--protea);
+}
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+.sun-icon { display: block; }
+.moon-icon { display: none; }
+
+:root[data-theme="dark"] .sun-icon { display: none; }
+:root[data-theme="dark"] .moon-icon { display: block; }
+
 .nav-links {
   display: flex;
   gap: var(--space-4);
@@ -200,6 +255,7 @@ p { margin: 0 0 var(--space-2); }
 
 /* ---------- Section shell ---------- */
 .section { padding: var(--space-6) 0; }
+.section-kitchen { background: var(--paper); transition: background 0.3s ease; }
 .section-head { max-width: 620px; margin-bottom: var(--space-4); }
 .section-head .eyebrow { color: var(--rust); }
 .section-dark { background: var(--ink); color: var(--sand); }
@@ -215,15 +271,45 @@ p { margin: 0 0 var(--space-2); }
   background: var(--paper);
   border-radius: var(--radius);
   overflow: hidden;
-  border: 1px solid rgba(26,29,25,0.08);
+  border: 1px solid var(--card-border);
   display: flex;
   flex-direction: column;
+  transition: var(--transition-smooth);
+}
+.trail-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+  border-color: rgba(217, 162, 39, 0.4);
 }
 .trail-card-photo {
-  height: 160px;
+  height: 180px;
   background: linear-gradient(135deg, var(--lagoon), var(--fynbos));
   position: relative;
+  overflow: hidden;
 }
+.trail-card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.trail-card:hover .trail-card-photo img {
+  transform: scale(1.08);
+}
+.trail-photo-placeholder {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease;
+}
+.placeholder-1 { background: linear-gradient(135deg, #1d6e74, #24402f); }
+.placeholder-2 { background: linear-gradient(135deg, #a8502e, #24402f); }
+.placeholder-3 { background: linear-gradient(135deg, #d9a227, #1d6e74); }
+.placeholder-4 { background: linear-gradient(135deg, #24402f, #a8502e); }
+
+.trail-card:hover .trail-photo-placeholder {
+  transform: scale(1.08);
+}
+
 .blaze {
   position: absolute;
   top: 12px;
@@ -232,23 +318,28 @@ p { margin: 0 0 var(--space-2); }
   height: 14px;
   border-radius: 50%;
   border: 2px solid var(--paper);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  z-index: 2;
 }
 .blaze-easy { background: #4f8a3d; }
 .blaze-moderate { background: #1d6e74; }
 .blaze-hard { background: #a8502e; }
+
 .trail-card-body { padding: var(--space-3); flex: 1; display: flex; flex-direction: column; }
-.trail-card-body h3 { font-size: 1.15rem; }
+.trail-card-body h3 { font-size: 1.15rem; color: var(--ink); }
 .trail-stats {
   display: flex;
   gap: var(--space-3);
   font-family: var(--font-mono);
   font-size: 0.78rem;
-  color: var(--fynbos);
+  color: var(--lagoon);
   margin: var(--space-1) 0 var(--space-2);
   flex-wrap: wrap;
 }
+:root[data-theme="dark"] .trail-stats { color: var(--protea); }
 .trail-stats span { white-space: nowrap; }
-.trail-card-body p { font-size: 0.92rem; color: #3a3a34; flex: 1; }
+.trail-card-body p { font-size: 0.92rem; color: var(--text-muted); flex: 1; }
+
 .trail-filters {
   display: flex;
   gap: var(--space-1);
@@ -260,11 +351,18 @@ p { margin: 0 0 var(--space-2); }
   font-size: 0.78rem;
   padding: 0.4rem 0.9rem;
   border-radius: 999px;
-  border: 1px solid rgba(26,29,25,0.2);
+  border: 1px solid var(--card-border);
   background: transparent;
+  color: var(--ink);
   cursor: pointer;
+  transition: var(--transition-smooth);
+}
+.filter-btn:hover {
+  border-color: var(--protea);
+  color: var(--protea);
 }
 .filter-btn.active { background: var(--fynbos); color: var(--sand); border-color: var(--fynbos); }
+:root[data-theme="dark"] .filter-btn.active { background: var(--protea); color: #121512; border-color: var(--protea); }
 
 /* ---------- Recipe cards ---------- */
 .recipe-grid {
@@ -274,14 +372,39 @@ p { margin: 0 0 var(--space-2); }
 }
 .recipe-card {
   display: grid;
-  grid-template-columns: 90px 1fr;
+  grid-template-columns: 100px 1fr;
   gap: var(--space-2);
-  padding: var(--space-2) 0;
-  border-bottom: 1px solid rgba(26,29,25,0.1);
+  padding: var(--space-2);
+  border-radius: var(--radius);
+  background: var(--paper);
+  border: 1px solid var(--card-border);
+  transition: var(--transition-smooth);
+}
+.recipe-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  border-color: rgba(217, 162, 39, 0.3);
+}
+.recipe-thumb {
+  width: 100px;
+  height: 100px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  background: var(--rust);
+}
+.recipe-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.recipe-card:hover .recipe-thumb img {
+  transform: scale(1.1);
 }
 .recipe-flame {
-  width: 90px;
-  height: 90px;
+  width: 100px;
+  height: 100px;
   border-radius: var(--radius);
   background: var(--rust);
   display: flex;
@@ -289,9 +412,10 @@ p { margin: 0 0 var(--space-2); }
   justify-content: center;
 }
 .recipe-flame svg { width: 34px; height: 34px; stroke: var(--sand); }
-.recipe-card h3 { font-size: 1.05rem; margin-bottom: 0.25rem; }
-.recipe-card p { font-size: 0.9rem; color: #3a3a34; margin-bottom: 0.35rem; }
-.recipe-meta { font-family: var(--font-mono); font-size: 0.75rem; color: var(--rust); }
+.recipe-card h3 { font-size: 1.05rem; margin-bottom: 0.25rem; color: var(--ink); }
+.recipe-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.35rem; }
+.recipe-meta { font-family: var(--font-mono); font-size: 0.75rem; color: var(--rust); font-weight: 500; }
+:root[data-theme="dark"] .recipe-meta { color: var(--protea); }
 
 /* ---------- Video grid ---------- */
 .video-grid {

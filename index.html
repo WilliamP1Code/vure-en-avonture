@@ -20,14 +20,20 @@
     <a href="#" class="brand">
       <!-- placeholder logo: mountain + flame monogram, swap with real logo later -->
       <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-        <path d="M2 26 L12 10 L17 18 L21 12 L30 26 Z" fill="#24402F"/>
-        <path d="M21 24c0-3 3-4 2-7 2 1 3 3 3 5 0 2.5-2 4.5-4.5 4.5S17 24.5 17 22c0-2 1-3.5 2.5-5-0.5 2 1.5 3 1.5 7z" fill="#D9A227"/>
+        <path d="M2 26 L12 10 L17 18 L21 12 L30 26 Z" fill="var(--fynbos)"/>
+        <path d="M21 24c0-3 3-4 2-7 2 1 3 3 3 5 0 2.5-2 4.5-4.5 4.5S17 24.5 17 22c0-2 1-3.5 2.5-5-0.5 2 1.5 3 1.5 7z" fill="var(--protea)"/>
       </svg>
       Vure en Avonture
     </a>
-    <button class="nav-toggle" id="navToggle" aria-label="Wissel kieslys" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav-controls">
+      <button class="theme-toggle" id="themeToggle" aria-label="Wissel tema" title="Skakel tussen ligte en donker modus">
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+      <button class="nav-toggle" id="navToggle" aria-label="Wissel kieslys" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
     <ul class="nav-links" id="navLinks">
       <li><a href="#trails">Wandelpaaie</a></li>
       <li><a href="#kitchen">Kampkombuis</a></li>
@@ -77,7 +83,10 @@
 
     <div class="trail-grid" id="trailGrid">
       <article class="trail-card" data-difficulty="moderate">
-        <div class="trail-card-photo"><span class="blaze blaze-moderate"></span></div>
+        <div class="trail-card-photo">
+          <img src="assets/robberg.jpg" alt="Robberg Natuurreservaat" loading="lazy">
+          <span class="blaze blaze-moderate" title="Matig"></span>
+        </div>
         <div class="trail-card-body">
           <h3>Robberg Natuurreservaat</h3>
           <div class="trail-stats"><span>9.2 km</span><span>~4 ure</span><span>Plettenbergbaai</span></div>
@@ -85,7 +94,10 @@
         </div>
       </article>
       <article class="trail-card" data-difficulty="hard">
-        <div class="trail-card-photo"><span class="blaze blaze-hard"></span></div>
+        <div class="trail-card-photo">
+          <img src="assets/otter.jpg" alt="Otter-wandelpad" loading="lazy">
+          <span class="blaze blaze-hard" title="Moeilik"></span>
+        </div>
         <div class="trail-card-body">
           <h3>Otter-wandelpad</h3>
           <div class="trail-stats"><span>45 km</span><span>5 dae</span><span>Storms Rivier – Nature's Valley</span></div>
@@ -93,7 +105,10 @@
         </div>
       </article>
       <article class="trail-card" data-difficulty="easy">
-        <div class="trail-card-photo"><span class="blaze blaze-easy"></span></div>
+        <div class="trail-card-photo">
+          <div class="trail-photo-placeholder placeholder-1"></div>
+          <span class="blaze blaze-easy" title="Maklik"></span>
+        </div>
         <div class="trail-card-body">
           <h3>Kranshoek Kuspad</h3>
           <div class="trail-stats"><span>7.5 km</span><span>~3 ure</span><span>Harkerville</span></div>
@@ -101,7 +116,10 @@
         </div>
       </article>
       <article class="trail-card" data-difficulty="hard">
-        <div class="trail-card-photo"><span class="blaze blaze-hard"></span></div>
+        <div class="trail-card-photo">
+          <div class="trail-photo-placeholder placeholder-2"></div>
+          <span class="blaze blaze-hard" title="Moeilik"></span>
+        </div>
         <div class="trail-card-body">
           <h3>Outeniqua-wandelpad</h3>
           <div class="trail-stats"><span>108 km</span><span>7 dae</span><span>George – Harkerville</span></div>
@@ -109,7 +127,10 @@
         </div>
       </article>
       <article class="trail-card" data-difficulty="easy">
-        <div class="trail-card-photo"><span class="blaze blaze-easy"></span></div>
+        <div class="trail-card-photo">
+          <div class="trail-photo-placeholder placeholder-3"></div>
+          <span class="blaze blaze-easy" title="Maklik"></span>
+        </div>
         <div class="trail-card-body">
           <h3>Knysna-strandpromenade-lus</h3>
           <div class="trail-stats"><span>4 km</span><span>~1.5 ure</span><span>Knysna</span></div>
@@ -117,7 +138,10 @@
         </div>
       </article>
       <article class="trail-card" data-difficulty="moderate">
-        <div class="trail-card-photo"><span class="blaze blaze-moderate"></span></div>
+        <div class="trail-card-photo">
+          <div class="trail-photo-placeholder placeholder-4"></div>
+          <span class="blaze blaze-moderate" title="Matig"></span>
+        </div>
         <div class="trail-card-body">
           <h3>Harkerville-kuspad</h3>
           <div class="trail-stats"><span>26.5 km</span><span>2 dae</span><span>Harkerville</span></div>
@@ -129,7 +153,7 @@
 </section>
 
 <!-- ============ CAMP KITCHEN ============ -->
-<section class="section" id="kitchen" style="background: var(--paper);">
+<section class="section section-kitchen" id="kitchen">
   <div class="container">
     <div class="section-head">
       <p class="eyebrow">Kampkombuis</p>
@@ -138,7 +162,9 @@
     </div>
     <div class="recipe-grid">
       <div class="recipe-card">
-        <div class="recipe-flame"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 2c1 3-2 4-2 7a4 4 0 108 0c0-1.5-1-2.5-1.5-4 1.5.5 3 2.5 3 5a6.5 6.5 0 11-13 0c0-4 3-6 5.5-8z"/></svg></div>
+        <div class="recipe-thumb">
+          <img src="assets/trout.jpg" alt="Forelvis in Foelie" loading="lazy">
+        </div>
         <div>
           <h3>Forelvis in Foelie langs die Rivier</h3>
           <p>Forel, suurlemoen, botter en wilde knoffel, toegedraai in foelie en begrawe in die kole vir 12 minute.</p>
@@ -146,7 +172,9 @@
         </div>
       </div>
       <div class="recipe-card">
-        <div class="recipe-flame"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 2c1 3-2 4-2 7a4 4 0 108 0c0-1.5-1-2.5-1.5-4 1.5.5 3 2.5 3 5a6.5 6.5 0 11-13 0c0-4 3-6 5.5-8z"/></svg></div>
+        <div class="recipe-thumb">
+          <img src="assets/potjie.jpg" alt="Woud-sampioenpotjie" loading="lazy">
+        </div>
         <div>
           <h3>Woud-sampioenpotjie</h3>
           <p>'n Stadige drie-uur potjie vir 'n rusdag, met wyn, tiemie en pêrelgort.</p>
