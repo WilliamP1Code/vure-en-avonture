@@ -91,3 +91,65 @@ if (themeToggle) {
   });
 }
 
+// ---------- 5. Ambient Campfire Sparks & Embers ----------
+const canvas = document.getElementById('heroSparks');
+if (canvas) {
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let particles = [];
+
+  function resizeCanvas() {
+    width = canvas.width = canvas.offsetWidth;
+    height = canvas.height = canvas.offsetHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  class Spark {
+    constructor() {
+      this.reset(true);
+    }
+    reset(initial = false) {
+      this.x = Math.random() * width;
+      this.y = initial ? Math.random() * height : height + 10;
+      this.size = Math.random() * 2.2 + 0.8;
+      this.speedY = Math.random() * 0.7 + 0.3;
+      this.speedX = (Math.random() - 0.5) * 0.6;
+      this.opacity = Math.random() * 0.75 + 0.25;
+      this.color = Math.random() > 0.4 ? '#d9a227' : '#a8502e';
+    }
+    update() {
+      this.y -= this.speedY;
+      this.x += this.speedX + Math.sin(this.y * 0.02) * 0.3;
+      this.opacity -= 0.0015;
+      if (this.y < -10 || this.opacity <= 0) {
+        this.reset();
+      }
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = Math.max(0, this.opacity);
+      ctx.shadowBlur = 6;
+      ctx.shadowColor = this.color;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 40; i++) {
+    particles.push(new Spark());
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+    particles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+
