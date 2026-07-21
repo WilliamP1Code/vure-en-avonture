@@ -265,6 +265,30 @@ p { margin: 0 0 var(--space-2); }
   stroke: var(--sand);
   stroke-width: 1;
 }
+/* Define the animation sequence and name it "spark-glow" */
+@keyframes spark-glow {
+  0% {
+    /* Base state: Soft orange/red glow */
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 
+                0 0 20px rgba(255, 69, 0, 0.4);
+  }
+  100% {
+    /* Intense state: Brighter, wider glow, pushing out further */
+    box-shadow: 0 0 15px rgba(255, 165, 0, 0.8), 
+                0 0 30px rgba(255, 69, 0, 0.6), 
+                0 0 45px rgba(255, 0, 0, 0.4);
+  }
+}
+/* 2. Target the hero header from your HTML */
+.hero {
+  /* Make sure the glow fades in/out smoothly */
+  transition: box-shadow 0.4s ease-out; 
+}
+
+/* 3. Trigger the animation when the mouse hovers over it */
+.hero:hover {
+  animation: spark-glow 1.2s infinite alternate;
+}
 .hero .container {
   position: relative;
   z-index: 5;

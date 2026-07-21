@@ -137,7 +137,7 @@ if (canvas) {
     }
   }
 
-  for (let i = 0; i < 40; i++) {
+  for (let i = 0; i < 100; i++) {
     particles.push(new Spark());
   }
 
